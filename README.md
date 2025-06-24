@@ -25,9 +25,9 @@
 ## 🛠️ Tech Stack
 
 - [React](https://reactjs.org/)
-- [Vite](https://vitejs.dev/)
-- Plain CSS (no Tailwind)
-- (Optional) [Supabase](https://supabase.com/) – for backend/auth (planned)
+- [Next.js](https://nextjs.org/)
+- Tailwind CSS
+- [Supabase](https://supabase.com/) – for backend/auth
 
 ---
 
