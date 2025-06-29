@@ -18,7 +18,7 @@ import { Job } from '../types/Job';
 
 
 export default function DashboardPage(){
-    const supabase = createClient(); // ✅ works without any issue
+    
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
@@ -37,6 +37,7 @@ export default function DashboardPage(){
 // fetch jobs code
     useEffect(() => {
     const fetchJobs = async () => {
+        const supabase = createClient(); // ✅ works without any issue
         const { data, error } = await supabase.from('jobs').select('*');
         if (error) {
         console.error('Error fetching jobs:', error.message);

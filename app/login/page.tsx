@@ -31,7 +31,8 @@ export default function LoginPage() {
         </button>
 
         <a href="/signup" className="text-sm text-blue-600 text-center underline">
-        Don't have an account? Sign up
+        <p>Don&apos;t have an account?</p>
+
         </a>
       </form>
     </div>
