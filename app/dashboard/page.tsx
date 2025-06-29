@@ -51,6 +51,7 @@ export default function DashboardPage(){
 // handleDelete
 
     const handleDelete = async (id: number) => {
+    const supabase = createClient();
     const { error } = await supabase.from('jobs').delete().eq('id', id);
     if (error) {
         console.error("Delete failed:", error);
@@ -71,6 +72,7 @@ export default function DashboardPage(){
 
    const handleFormSubmit = async (formData: Job) => {
   if (editingIndex !== null && jobs[editingIndex]?.id) {
+    const supabase = createClient();
     const jobId = jobs[editingIndex].id;
     const { error } = await supabase
       .from("jobs")
@@ -84,6 +86,7 @@ export default function DashboardPage(){
     }
   } else {
     // ✅ Get current user to get their ID
+    const supabase = createClient();
     const { data: { user }, error: userError } = await supabase.auth.getUser();
 
     if (userError || !user) {
