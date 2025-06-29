@@ -2,9 +2,9 @@
 import React from 'react';
 import { useState } from 'react'
 import { useEffect } from 'react';
-import { supabase } from '../lib/supabase/Client'
+// import { supabase } from '../lib/supabase/Client';
+import { createClient } from '../lib/supabase/Client'
 
-import { useRouter } from 'next/navigation'
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import SearchBar from '../components/SearchBar';
@@ -18,8 +18,8 @@ import { Job } from '../types/Job';
 
 
 export default function DashboardPage(){
-    const router = useRouter();
-   
+    const supabase = createClient(); // ✅ works without any issue
+
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedStatus, setSelectedStatus] = useState('');
@@ -166,11 +166,7 @@ export default function DashboardPage(){
                 key={job.id}
                 job={job}
                 onDelete={() => handleDelete(job.id!)}
-                onEdit={() => {
-                  setFormData(job)
-                  setEditingIndex(index)
-                  setIsModalOpen(true)
-                }}
+                onEdit={() => handleEdit(index)}
               />
 
           ))}
