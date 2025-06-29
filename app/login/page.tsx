@@ -26,10 +26,6 @@ export default function LoginPage() {
           Log In
         </button>
 
-        <button formAction={signup} className="bg-gray-200 py-2 rounded">
-          Sign Up
-        </button>
-
         <a href="/signup" className="text-sm text-blue-600 text-center underline">
         <p>Don&apos;t have an account?</p>
 
