@@ -32,7 +32,7 @@
 ---
 
 
-🌐 Deployment
+🌐
 Currently deployed on:
 [https://jobpilot-azure.vercel.app/]
 
