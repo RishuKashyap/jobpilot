@@ -26,7 +26,7 @@ export default function SettingsPage() {
       if (userError || !user) return;
       setUserId(user.id);
 
-      const { data, error } = await supabase
+      const { data } = await supabase
         .from('custom_reminders')
         .select('*')
         .eq('user_id', user.id)

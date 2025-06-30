@@ -66,7 +66,7 @@ export default function RemindersPage() {
         <p>No follow-ups needed right now 🎉</p>
       ) : (
         <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {followUpJobs.map((job, index) => (
+          {followUpJobs.map((job) => (
             <JobCard
               key={job.id}
               job={job}
