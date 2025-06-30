@@ -26,6 +26,11 @@ export default function LoginPage() {
           Log In
         </button>
 
+        <p className="text-sm mt-2">
+          <a href="/forgot-password" className="text-blue-600 underline">Forgot your password?</a>
+        </p>
+
+
         <a href="/signup" className="text-sm text-blue-600 text-center underline">
         <p>Don&apos;t have an account?</p>
 

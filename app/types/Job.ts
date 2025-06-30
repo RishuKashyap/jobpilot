@@ -5,6 +5,7 @@ export type Job = {
   date: string
   status: string
   notes: string
+  user_id?:string
 }
 
 

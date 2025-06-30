@@ -2,25 +2,15 @@
 import React from 'react';
 import { useState } from 'react'
 import { useEffect } from 'react';
-// import { supabase } from '../lib/supabase/Client';
-import { createClient } from '../lib/supabase/Client'
+import { createClient } from '../../lib/supabase/Client'
+import SearchBar from '../../components/SearchBar';
+import FilterSelect from '../../components/FilterSelect';
+import JobCard from '../../components/JobCard';
+import JobModal from '../../components/JobModal';
+import { Job } from '../../types/Job';
+import Papa from 'papaparse';
 
-import Header from '../components/Header';
-import Sidebar from '../components/Sidebar';
-import SearchBar from '../components/SearchBar';
-import FilterSelect from '../components/FilterSelect';
-import JobCard from '../components/JobCard';
-import JobModal from '../components/JobModal';
-
-
-import { Job } from '../types/Job';
-
-
-
-export default function DashboardPage(){
-    
-
-    const [sidebarOpen, setSidebarOpen] = useState(false);
+const DashboardPage = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedStatus, setSelectedStatus] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -68,6 +58,32 @@ export default function DashboardPage(){
     setIsModalOpen(true);
     };
 
+// handle exportcsv
+    const handleExportCSV = () => {
+  const formattedJobs = jobs.map(({ company, title, status, date, notes }) => ({
+  Company: company,
+  Title: title,
+  Status: status,
+  Date: new Date(date).toLocaleDateString('en-GB'),
+  Notes: notes,
+}));
+
+
+  const csv = Papa.unparse(formattedJobs);
+
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement('a');
+  link.href = url;
+  link.setAttribute('download', 'job_applications.csv');
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
+    
+    
 // handleFormSubmit
 
    const handleFormSubmit = async (formData: Job) => {
@@ -121,35 +137,33 @@ export default function DashboardPage(){
     return(
         <div className="min-h-screen flex flex-col md:flex-row">
 
-        {/* Toggle Button for small screens */}
-        <button
-        className="md:hidden p-4 bg-gray-200 text-left"
-        onClick={() => setSidebarOpen(!sidebarOpen)}
-        >
-        MENU
-        </button>
-
-        {/* Sidebar */}
-        <Sidebar isOpen={sidebarOpen} />
-
         {/* Main Content */}
         <main className="flex-1 p-4">
-
-        <Header
-        onAddClick={() => {
-            setFormData({ company: '', title: '', date: '', status: '', notes: '' })
-            setEditingIndex(null)
-            setIsModalOpen(true)
-        }}
-        />
-
-        
 
         {/* Searchbar */}
         <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
         {/* Filter */}
         <FilterSelect selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} />
+
+        <button
+            onClick={() => {
+            setFormData({ company: '', title: '', date: '', status: '', notes: '' })
+            setEditingIndex(null)
+            setIsModalOpen(true)
+            }}
+            className="mb-4 md:ml-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+        >
+            + Add Job
+        </button>
+
+        
+        <button
+          onClick={() => handleExportCSV()}
+          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition ml-4"
+        >
+          ⬇️ Export CSV
+        </button>
 
 
         {/* Job Cards Grid and MAP function */}
@@ -192,6 +206,8 @@ export default function DashboardPage(){
         </div>
     );
 }
+
+export default DashboardPage;
 
 
 
